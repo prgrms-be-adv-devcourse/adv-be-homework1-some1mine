@@ -1,7 +1,7 @@
 package site.thedeny1106.homework.order.presentation.dto;
 
 import site.thedeny1106.homework.order.application.dto.OrderCommand;
-import site.thedeny1106.homework.order.domain.PurchaseOrderStatus;
+import site.thedeny1106.homework.order.domain.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ public record OrderRequest(
 
         int amount,
 
-        PurchaseOrderStatus status,
+        OrderStatus status,
 
         LocalDateTime createdAt,
 

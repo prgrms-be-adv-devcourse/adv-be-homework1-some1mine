@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import site.thedeny1106.homework.order.application.dto.OrderCommand;
-import site.thedeny1106.homework.order.application.dto.OrderInfo;
+import site.thedeny1106.homework.order.presentation.dto.OrderInfo;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "\"purchase_order\"", schema = "public")
-public class PurchaseOrder {
+public class Order {
 
     @Id
     private UUID id;
@@ -41,7 +41,7 @@ public class PurchaseOrder {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private PurchaseOrderStatus status;
+    private OrderStatus status;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -49,17 +49,23 @@ public class PurchaseOrder {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public static PurchaseOrder fromCommand(OrderCommand command) {
-        return new PurchaseOrder(
-                command.uuid(),
-                command.productId() ,
-                command.sellerId() ,
-                command.memberId() ,
-                command.amount() ,
-                command.status(),
-                command.now() ,
-                command.now()
-        );
+    private Order(UUID productId,
+                          UUID sellerId,
+                          UUID memberId,
+                          BigDecimal amount) {
+        this.id = UUID.randomUUID();
+        this.productId = productId;
+        this.sellerId = sellerId;
+        this.memberId = memberId;
+        this.amount = amount;
+        this.status = OrderStatus.CREATED;
+    }
+
+    public static Order create(UUID productId,
+                               UUID sellerId,
+                               UUID memberId,
+                               BigDecimal amount) {
+        return new Order(productId, sellerId, memberId, amount);
     }
 
     public OrderInfo toResponse() {
@@ -77,7 +83,7 @@ public class PurchaseOrder {
 
 
     public void markPaid() {
-        this.status = PurchaseOrderStatus.PAID;
+        this.status = OrderStatus.PAID;
     }
 
     @PrePersist
@@ -89,7 +95,7 @@ public class PurchaseOrder {
         createdAt = now;
         updatedAt = now;
         if (status == null) {
-            status = PurchaseOrderStatus.CREATED;
+            status = OrderStatus.CREATED;
         }
     }
 

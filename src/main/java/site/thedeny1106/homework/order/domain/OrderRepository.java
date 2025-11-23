@@ -6,8 +6,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface OrderRepository  {
-    Page<PurchaseOrder> findAll(Pageable pageable);
-    PurchaseOrder save(PurchaseOrder order);
-    Optional<PurchaseOrder> findById(UUID id);
+public interface OrderRepository {
+    Page<Order> findAll(Pageable pageable);
+    Order save(Order order);
+    Optional<Order> findById(UUID id);
 }

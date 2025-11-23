@@ -1,6 +1,6 @@
 package site.thedeny1106.homework.order.application.dto;
 
-import site.thedeny1106.homework.order.domain.PurchaseOrderStatus;
+import site.thedeny1106.homework.order.domain.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ public record OrderCommand(
         UUID sellerId,
         UUID memberId,
         BigDecimal amount,
-        PurchaseOrderStatus status,
+        OrderStatus status,
         LocalDateTime now,
         LocalDateTime now1
 ) {

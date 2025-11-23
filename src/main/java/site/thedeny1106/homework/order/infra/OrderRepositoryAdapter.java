@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import site.thedeny1106.homework.order.domain.OrderRepository;
-import site.thedeny1106.homework.order.domain.PurchaseOrder;
+import site.thedeny1106.homework.order.domain.Order;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -16,17 +16,17 @@ public class OrderRepositoryAdapter implements OrderRepository {
     private final OrderJpaRepository orderJpaRepository;
 
     @Override
-    public Page<PurchaseOrder> findAll(Pageable pageable) {
+    public Page<Order> findAll(Pageable pageable) {
         return orderJpaRepository.findAll(pageable);
     }
 
     @Override
-    public PurchaseOrder save(PurchaseOrder order) {
+    public Order save(Order order) {
         return orderJpaRepository.save(order);
     }
 
     @Override
-    public Optional<PurchaseOrder> findById(UUID id) {
+    public Optional<Order> findById(UUID id) {
         return orderJpaRepository.findById(id);
     }
 }

@@ -6,9 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import site.thedeny1106.homework.common.ResponseEntity;
 import site.thedeny1106.homework.order.application.OrderService;
-import site.thedeny1106.homework.order.application.dto.OrderInfo;
+import site.thedeny1106.homework.order.presentation.dto.OrderInfo;
 import site.thedeny1106.homework.order.presentation.dto.OrderRequest;
-import site.thedeny1106.homework.order.domain.PurchaseOrderStatus;
+import site.thedeny1106.homework.order.domain.OrderStatus;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class OrderController {
 
     @Operation(summary = "주문 생성", description = "상품과 구매자 정보를 바탕으로 주문을 생성한다.")
     @PostMapping
-    public ResponseEntity<OrderInfo> create(@RequestBody OrderRequest request) {
+    public ResponseEntity<OrderInfo> create(@RequestBody OrderRequest request) throws IllegalAccessException {
         return orderService.create(request.toCommand());
     }
 
@@ -34,12 +34,12 @@ public class OrderController {
     @Operation(summary = "주문 상태 결제 변경", description = "생성된 주문의 상태를 결제로 변경한다..")
     @PutMapping("{id}/paid")
     public ResponseEntity<OrderInfo> pay(@PathVariable String id) throws IllegalAccessException {
-        return orderService.setStatus(id, PurchaseOrderStatus.PAID);
+        return orderService.setStatus(id, OrderStatus.PAID);
     }
 
     @Operation(summary = "주문 상태 취소 변경", description = "생성된 주문의 상태를 취소로 변경한다..")
     @PutMapping("{id}/cancel")
     public ResponseEntity<OrderInfo> cancel(@PathVariable String id) throws IllegalAccessException {
-        return orderService.setStatus(id, PurchaseOrderStatus.CANCELLED);
+        return orderService.setStatus(id, OrderStatus.CANCELLED);
     }
 }

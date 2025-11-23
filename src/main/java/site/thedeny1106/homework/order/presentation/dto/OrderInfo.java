@@ -1,8 +1,8 @@
-package site.thedeny1106.homework.order.application.dto;
+package site.thedeny1106.homework.order.presentation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import site.thedeny1106.homework.order.domain.PurchaseOrderStatus;
+import site.thedeny1106.homework.order.domain.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class OrderInfo {
 
     private BigDecimal amount;
 
-    private PurchaseOrderStatus status;
+    private OrderStatus status;
 
     private LocalDateTime createdAt;
 

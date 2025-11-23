@@ -1,5 +1,9 @@
 api:
   v1: version1
+  settlement:
+    async:
+      enabled: false
+      pool_size: 5
 spring:
   application:
     name: projectPay
@@ -24,5 +28,18 @@ spring:
         format_sql: true
         jdbc:
           time_zone: UTC
+  batch:
+    jdbc:
+      initialize-schema: never
+  task:
+    scheduling:
+      cron:
+        settlement: ${SETTLEMENT_CRON:-}
 server:
   port: 8080
+
+payment:
+  toss:
+    secret-key: ${TOSS_SECRET_KEY}
+
+
